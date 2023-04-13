@@ -20,7 +20,7 @@ async def kemono(_, message):
     try:
         img_urls, vid_urls = await fetch_kemono_pages(link, reply)
         await reply.edit(f"<code>Fetched {len(img_urls)} Images. Now Sending</code>")
-        for i in range(10):
+        for i in range(len(img_urls)):
             _, ext = os.path.splitext(img_urls[i])
             try:
                 await loop.run_in_executor(executor, lambda: dl_kemono_image(img_urls[i], i, ext))
@@ -39,7 +39,7 @@ async def kemono(_, message):
 
         if len(vid_urls) != 0:
             vid_reply = await message.reply_text(f"<code>Fetched {len(vid_urls)} Videos. Now Sending...</code>")
-            for i in range(5):
+            for i in range(len(vid_urls)):
                 _, ext = os.path.splitext(vid_urls[i])
                 try:
                     await loop.run_in_executor(executor, lambda: dl_kemono_video(vid_urls[i], i, ext))
